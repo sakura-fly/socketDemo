@@ -14,7 +14,7 @@ class ConnectionThread extends Thread {
     public ConnectionThread(Socket socket, SocketServer socketServer) {
         this.socket = socket;
         this.socketServer = socketServer;
-        connection = new Connection(socket);
+        connection = new Connection(socket,socketServer.getOnConnectListenner());
         isRunning = true;
     }
 
@@ -26,7 +26,6 @@ class ConnectionThread extends Thread {
                 isRunning = false;
                 break;
             }
-            
             BufferedReader reader;
             try {
                 reader = new BufferedReader(new InputStreamReader(

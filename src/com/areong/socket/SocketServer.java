@@ -8,9 +8,15 @@ public class SocketServer {
     private ServerSocket serverSocket;
     private ListeningThread listeningThread;
     private MessageHandler messageHandler;
+    private OnConnectListenner onConnectListenner;
 
-    public SocketServer(int port, MessageHandler handler) {
+    public OnConnectListenner getOnConnectListenner() {
+        return onConnectListenner;
+    }
+
+    public SocketServer(int port, MessageHandler handler,OnConnectListenner onConnectListenner) {
         messageHandler = handler;
+        this.onConnectListenner = onConnectListenner;
         try {
             serverSocket = new ServerSocket(port);
             listeningThread = new ListeningThread(this, serverSocket);

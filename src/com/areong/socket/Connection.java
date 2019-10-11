@@ -8,9 +8,14 @@ import java.io.PrintWriter;
 public class Connection {
     private Socket socket;
 
-    public Connection(Socket socket) {
+    public Connection(Socket socket,OnConnectListenner onConnectListenner) {
         this.socket = socket;
+        if (onConnectListenner != null) {
+            onConnectListenner.onConnect(this);
+        }
     }
+
+
 
     public void println(String message) {
         PrintWriter writer;
