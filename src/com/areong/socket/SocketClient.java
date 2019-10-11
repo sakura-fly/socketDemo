@@ -1,10 +1,6 @@
 package com.areong.socket;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.InetAddress;
 import java.net.Socket;
 
@@ -20,12 +16,15 @@ public class SocketClient {
         }
     }
 
-    public void println(String message) {
+    public void println(byte[] message) {
         PrintWriter writer;
+        PrintStream ps;
         try {
-            writer = new PrintWriter(new OutputStreamWriter(
-                                     socket.getOutputStream()), true);
-            writer.println(MessageFlag.pureMessage + message);
+            // writer = new PrintWriter(new OutputStreamWriter(
+            //                          socket.getOutputStream()), true);
+            // writer.println(MessageFlag.pureMessage + message);
+            ps = new PrintStream(socket.getOutputStream(),true);
+            ps.write(message);
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -35,19 +34,23 @@ public class SocketClient {
     /*
     This function blocks.
     */
-    public String readLine() {
+    public byte[] readLine() {
         BufferedReader reader;
+        byte[] by = new byte[1024];
         try {
-            reader = new BufferedReader(new InputStreamReader(
-                                        socket.getInputStream()));
-            return reader.readLine();
+            // reader = new BufferedReader(new InputStreamReader(
+            //                             socket.getInputStream()));
+            InputStream is = socket.getInputStream();
+            // return reader.readLine();
+            is.read(by);
+            return by;
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-            return "";
+            return by;
         }
     }
-    
+
     /*
      * Ready for use.
      */

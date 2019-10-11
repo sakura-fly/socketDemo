@@ -66,7 +66,9 @@ class SocketExample {
     public static void main(String[] args) {
         SocketServer server = new SocketServer(5556, new EchoHandler(), connection -> {
             System.out.println("connect");
-            connection.println("233");
+            byte[] b = new byte[1024];
+            b[0] = 0x21;
+            connection.println(b);
         });
     }
 }
