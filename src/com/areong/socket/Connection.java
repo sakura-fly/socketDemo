@@ -19,22 +19,35 @@ public class Connection {
 
 
     public void println(byte[] message) {
-        PrintWriter writer;
+        PrintStream ps;
         try {
-            // writer = new PrintWriter(new OutputStreamWriter(
-            //                          socket.getOutputStream()), true);
-            // writer.println(message);
-            PrintStream ps = new PrintStream(socket.getOutputStream(),true);
-            byte[] b = new byte[1024];
+            ps = new PrintStream(socket.getOutputStream(),true);
+            ps.write(message[0]);
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+    public void serverprintln(byte[] message) {
+        PrintStream ps;
+        try {
+            ps = new PrintStream(socket.getOutputStream(),true);
+            int length = 5;
+            byte[] b = new byte[length];
             b[0] = 0x21;
             b[1] = 0x22;
-            byte[] b2 = new byte[1024];
+            b[2] = 0x23;
+            b[3] = 0x24;
+            b[4] = 0x25;
+            byte[] b2 = new byte[length];
             b2[0] = 0x31;
             b2[1] = 0x32;
-            byte[] b3 = new byte[1024];
-            for(int j=0;j<b.length;j++){
-                if(message[0] == b[j]){
-                    ps.write(b2[j]);
+            b2[2] = 0x33;
+            b2[3] = 0x34;
+            b2[4] = 0x35;
+            for(int j=0;j<b2.length;j++){
+                if(message[0] == b2[j]){
+                    ps.write(b[j+1]);
                 }
             }
         } catch (IOException e) {

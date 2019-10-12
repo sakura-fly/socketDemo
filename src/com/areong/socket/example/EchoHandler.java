@@ -7,8 +7,8 @@ class EchoHandler implements MessageHandler {
     @Override
     public void onReceive(Connection connection, byte[] message) {
         System.out.println("Got a message from a client:");
-        System.out.println(message);
+        System.out.println("Ê®½øÖÆ£º"+message[0]);
         System.out.println("Send back the same message back to the client.");
-        connection.println(message);
+        connection.serverprintln(message);
     }
 }

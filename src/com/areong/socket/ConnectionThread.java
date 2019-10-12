@@ -27,39 +27,16 @@ class ConnectionThread extends Thread {
                 isRunning = false;
                 break;
             }
-            BufferedReader reader;
             try {
-                // reader = new BufferedReader(new InputStreamReader(
-                //                             socket.getInputStream()));
-                // String rawMessage = reader.readLine();
-                // String messageFlag = rawMessage.substring(0, 1);
-                // String message = rawMessage.substring(1);
-                //
-                // // Check the message flag.
-                // switch (messageFlag) {
-                // case MessageFlag.pureMessage:
-                //     // Handle the message.
-                //     if (message != null) {
-                //         socketServer.getMessageHandler().onReceive(connection, message);
-                //     }
-                //     break;
-                // case MessageFlag.connectionClosed:
-                //     stopRunning();
-                //     break;
-                // default:
-                //     break;
-                // }
                 InputStream is = socket.getInputStream();
-                byte[] by = new byte[1024];
+                byte[] by = new byte[is.read()];
                 is.read(by);
-                if(by.length > 0){
-                    socketServer.getMessageHandler().onReceive(connection, by);
-                    break;
-                }
-
+                System.out.println("接收客户端的数据："+String.format("0x%02x",by[0]));
+                socketServer.getMessageHandler().onReceive(connection, by);
             } catch (IOException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
+                break;
             }
         }
     }
