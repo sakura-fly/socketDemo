@@ -69,7 +69,7 @@ class SocketExample {
             System.out.println("connect");
             byte[] b = new byte[1024];
             b[0] = 0x21;
-            System.out.println("·şÎñ¶Ë·¢ËÍ£º"+String.format("0x%02x",b[0]));
+            System.out.println("æœåŠ¡ç«¯å‘é€ï¼š"+String.format("0x%02x",b[0]));
             connection.println(b);
         });
     }

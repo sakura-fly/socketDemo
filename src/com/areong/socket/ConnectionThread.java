@@ -31,7 +31,7 @@ class ConnectionThread extends Thread {
                 InputStream is = socket.getInputStream();
                 byte[] by = new byte[is.read()];
                 is.read(by);
-                System.out.println("½ÓÊÕ¿Í»§¶ËµÄÊı¾İ£º"+String.format("0x%02x",by[0]));
+                System.out.println("æ¥æ”¶å®¢æˆ·ç«¯çš„æ•°æ®ï¼š"+String.format("0x%02x",by[0]));
                 socketServer.getMessageHandler().onReceive(connection, by);
             } catch (IOException e) {
                 // TODO Auto-generated catch block
