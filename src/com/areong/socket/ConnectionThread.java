@@ -29,7 +29,7 @@ class ConnectionThread extends Thread {
             }
             try {
                 InputStream is = socket.getInputStream();
-                byte[] by = new byte[is.read()];
+                byte[] by = new byte[1024];
                 is.read(by);
                 System.out.println("接收客户端的数据："+String.format("0x%02x",by[0]));
                 socketServer.getMessageHandler().onReceive(connection, by);
