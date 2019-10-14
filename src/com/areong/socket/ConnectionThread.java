@@ -15,13 +15,13 @@ class ConnectionThread extends Thread {
     public ConnectionThread(Socket socket, SocketServer socketServer) {
         this.socket = socket;
         this.socketServer = socketServer;
-        connection = new Connection(socket,socketServer.getOnConnectListenner());
+        connection = new Connection(socket, socketServer.getOnConnectListenner());
         isRunning = true;
     }
 
     @Override
     public void run() {
-        while(isRunning) {
+        while (isRunning) {
             // Check whether the socket is closed.
             if (socket.isClosed()) {
                 isRunning = false;
@@ -30,8 +30,11 @@ class ConnectionThread extends Thread {
             try {
                 InputStream is = socket.getInputStream();
                 byte[] by = new byte[1024];
-                is.read(by);
-                System.out.println("接收客户端的数据："+String.format("0x%02x",by[0]));
+                if (is.read(by) == -1) {
+                    socket.close();
+                    continue;
+                }
+                System.out.println("接收客户端的数据：" + String.format("0x%02x", by[0]));
                 socketServer.getMessageHandler().onReceive(connection, by);
             } catch (IOException e) {
                 // TODO Auto-generated catch block
