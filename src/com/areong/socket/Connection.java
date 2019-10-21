@@ -22,16 +22,6 @@ public class Connection {
         PrintStream ps;
         try {
             ps = new PrintStream(socket.getOutputStream(),true);
-            ps.write(message[0]);
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-    }
-    public void serverprintln(byte[] message) {
-        PrintStream ps;
-        try {
-            ps = new PrintStream(socket.getOutputStream(),true);
             ps.write(message);
         } catch (IOException e) {
             // TODO Auto-generated catch block

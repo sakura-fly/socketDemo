@@ -9,6 +9,6 @@ class EchoHandler implements MessageHandler {
         System.out.println("Got a message from a client:");
         System.out.println("十进制："+message[0]);
         System.out.println("Send back the same message back to the client.");
-        connection.serverprintln(message);
+        connection.println(message);
     }
 }
