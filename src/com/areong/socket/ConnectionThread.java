@@ -30,7 +30,7 @@ class ConnectionThread extends Thread {
                 byte[] buffer=new byte[1024];
                 int ch;
                 if ((ch = is.read(buffer)) == -1) {
-                    socket.close();
+                    stopRunning();
                     continue;
                 }
                 bytestream.write(buffer,0,ch);
