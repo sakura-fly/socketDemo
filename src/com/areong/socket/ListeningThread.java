@@ -28,16 +28,7 @@ class ListeningThread extends Thread {
                 break;
             }
 
-            // Remove not running connection threads.
-            for (ConnectionThread connectionThread : connectionThreads) {
-                if (!connectionThread.isRunning()) {
-                    notRunningConnectionThreads.addElement(connectionThread);
-                }
-            }
-            for (ConnectionThread connectionThread : notRunningConnectionThreads) {
-                connectionThreads.remove(connectionThread);
-            }
-            notRunningConnectionThreads.clear();
+            removeNoRun();
             
             try {
                 Socket socket;
@@ -51,10 +42,28 @@ class ListeningThread extends Thread {
             }
         }
     }
-    
+
+    private void removeNoRun() {
+        // Remove not running connection threads.
+        for (ConnectionThread connectionThread : connectionThreads) {
+            if (!connectionThread.isRunning()) {
+                notRunningConnectionThreads.addElement(connectionThread);
+            }
+        }
+        for (ConnectionThread connectionThread : notRunningConnectionThreads) {
+            connectionThreads.remove(connectionThread);
+        }
+        notRunningConnectionThreads.clear();
+    }
+
     public void stopRunning() {
         for (int i = 0; i < connectionThreads.size(); i++)
             connectionThreads.elementAt(i).stopRunning();
         isRunning = false;
+    }
+
+    public int connectionCount() {
+        removeNoRun();
+        return connectionThreads.size();
     }
 } 

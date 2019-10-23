@@ -14,7 +14,7 @@ public class SocketServer {
         return onConnectListenner;
     }
 
-    public SocketServer(int port, MessageHandler handler,OnConnectListenner onConnectListenner) {
+    public SocketServer(int port, MessageHandler handler, OnConnectListenner onConnectListenner) {
         messageHandler = handler;
         this.onConnectListenner = onConnectListenner;
         try {
@@ -26,7 +26,7 @@ public class SocketServer {
             e.printStackTrace();
         }
     }
-    
+
     public void setMessageHandler(MessageHandler handler) {
         messageHandler = handler;
     }
@@ -34,7 +34,7 @@ public class SocketServer {
     public MessageHandler getMessageHandler() {
         return messageHandler;
     }
-    
+
     /*
      * Ready for use.
      */
@@ -52,4 +52,11 @@ public class SocketServer {
             e.printStackTrace();
         }
     }
+
+    public void connetionCount() {
+        if (listeningThread.connectionCount() == 0){
+            close();
+        }
+    }
+
 }
